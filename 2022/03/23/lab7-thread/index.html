@@ -170,7 +170,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>986 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>987 Words</span>
         </span>
     
     
@@ -183,7 +183,7 @@
         
 
         <div class="article-content markdown-body">
-            <h2 id="Uthread-switching-between-threads"><a href="#Uthread-switching-between-threads" class="headerlink" title="Uthread: switching between threads"></a>Uthread: switching between threads</h2><p>修改 <code>struct thread</code>，添加寄存器:</p>
+            <h1 id="lab7-thread"><a href="#lab7-thread" class="headerlink" title="lab7-thread"></a>lab7-thread</h1><h2 id="Uthread-switching-between-threads"><a href="#Uthread-switching-between-threads" class="headerlink" title="Uthread: switching between threads"></a>Uthread: switching between threads</h2><p>修改 <code>struct thread</code>，添加寄存器:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">thread</span> &#123;</span></span><br><span class="line">  uint64 ra;</span><br><span class="line">  uint64 sp;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// callee-saved</span></span><br><span class="line">  uint64 s0;</span><br><span class="line">  uint64 s1;</span><br><span class="line">  uint64 s2;</span><br><span class="line">  uint64 s3;</span><br><span class="line">  uint64 s4;</span><br><span class="line">  uint64 s5;</span><br><span class="line">  uint64 s6;</span><br><span class="line">  uint64 s7;</span><br><span class="line">  uint64 s8;</span><br><span class="line">  uint64 s9;</span><br><span class="line">  uint64 s10;</span><br><span class="line">  uint64 s11;</span><br><span class="line">  <span class="type">char</span>       <span class="built_in">stack</span>[STACK_SIZE]; <span class="comment">/* the thread&#x27;s stack */</span></span><br><span class="line">  <span class="type">int</span>        state;             <span class="comment">/* FREE, RUNNING, RUNNABLE */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>在 thread_schedule 中调用 <code>thread_switch</code>：</p>
