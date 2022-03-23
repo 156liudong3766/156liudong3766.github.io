@@ -9,6 +9,8 @@
     
     <title>
         
+            6.S081 Lab Trap |
+        
         Dong&#39;s Blog
     </title>
     
@@ -140,7 +142,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation"></span>
+            <span class="title-hover-animation">6.S081 Lab Trap</span>
         </div>
 
         
@@ -159,10 +161,21 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-03-23 12:58:06</span>
-        <span class="mobile">2022-03-23 12:58</span>
+        <span class="pc">2022-03-23 21:42:34</span>
+        <span class="mobile">2022-03-23 21:42</span>
     </span>
     
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/6-S081-lab/">6.S081 lab</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -181,7 +194,7 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="lab4-traps"><a href="#lab4-traps" class="headerlink" title="lab4-traps"></a>lab4-traps</h1><p><img src="/2022/03/23/lab4-traps/Hexo-Blog\source_posts\picture\image-20220114231642314.png" alt="image-20220114231642314"></p>
+            <h1 id="lab4-traps"><a href="#lab4-traps" class="headerlink" title="lab4-traps"></a>lab4-traps</h1><p><img lazyload src="/images/loading.svg" data-src="D:\Hexo-Blog\source_posts\6-S081-Lab-Trap\image-20220114231642314.png" alt="image-20220114231642314"></p>
 <p>1、Which registers contain arguments to functions?  For example, which    register holds 13 in main’s call to <code>printf</code>?  </p>
 <p>哪个寄存器存储函数的参数？例如，在main对printf的调用中哪个寄存器存了13？</p>
 <p>a0-a7;a2</p>
@@ -204,8 +217,8 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">void main(void) &#123;</span><br><span class="line">  1c:	1141                	addi	sp,sp,-16</span><br><span class="line">  1e:	e406                	sd	ra,8(sp)</span><br><span class="line">  20:	e022                	sd	s0,0(sp)</span><br><span class="line">  22:	0800                	addi	s0,sp,16</span><br><span class="line">  printf(&quot;%d %d\n&quot;, f(8)+1, 13);</span><br><span class="line">  24:	4635                	li	a2,13</span><br><span class="line">  26:	45b1                	li	a1,12</span><br><span class="line">  28:	00000517          	auipc	a0,0x0</span><br><span class="line">  2c:	7b050513          	addi	a0,a0,1968 # 7d8 &lt;malloc+0xea&gt;</span><br><span class="line">  30:	00000097          	auipc	ra,0x0</span><br><span class="line">  34:	600080e7          	jalr	1536(ra) # 630 &lt;printf&gt;</span><br><span class="line">  exit(0);</span><br><span class="line">  38:	4501                	li	a0,0</span><br><span class="line">  3a:	00000097          	auipc	ra,0x0</span><br><span class="line">  3e:	27e080e7          	jalr	638(ra) # 2b8 &lt;exit&gt;</span><br></pre></td></tr></table></figure>
 
 <p>在RISC-V汇编中：</p>
-<p><img src="/2022/03/23/lab4-traps/Hexo-Blog\source_posts\picture\image-20220114233148295.png" alt="image-20220114233148295"></p>
-<p><img src="/2022/03/23/lab4-traps/Hexo-Blog\source_posts\picture\image-20220114233407461.png" alt="image-20220114233407461"></p>
+<p><img lazyload src="/images/loading.svg" data-src="D:\Hexo-Blog\source_posts\6-S081-Lab-Trap\image-20220114233148295.png" alt="image-20220114233148295"></p>
+<p><img lazyload src="/images/loading.svg" data-src="D:\Hexo-Blog\source_posts\6-S081-Lab-Trap\image-20220114233407461.png" alt="image-20220114233407461"></p>
 <h2 id="Backtrace"><a href="#Backtrace" class="headerlink" title="Backtrace"></a>Backtrace</h2><p>这个lab实际就是要求写一个backtrace函数，能够打印出frame pointer所指的地址处return address</p>
 <p><a class="link" target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2020/lec/l-riscv-slides.pdf">这个slide<i class="fas fa-external-link-alt"></i></a>描述了堆栈的结构</p>
 <p>根据提示，我们有了r_fp()可以取出s0中的frame pointer，那么剩下的工作就是遍历栈，打印出所有的return address，请注意，返回地址与堆栈帧指针的固定偏移量(-8)，保存的帧指针与帧指针的固定偏移量(-16)</p>
@@ -225,7 +238,7 @@
 <p><code>sigalarm(2, periodic)</code>先调用sigalarm(), 将时间间隔设为 2，每隔2 个 ticks调用程序 periodic，然后调用 <code>sigalarm(0, 0)</code>, 内核 停止 生成 periodic alarm calls.</p>
 <p>具体步骤：</p>
 <p>先修改 Makefile 让 <code>alarmtest.c</code> 能被编译为一个xv6用户程序：</p>
-<p><img src="/2022/03/23/lab4-traps/Hexo-Blog\source_posts\picture\image-20220116194050677.png" alt="image-20220116194050677"></p>
+<p><img lazyload src="/images/loading.svg" data-src="D:\Hexo-Blog\source_posts\6-S081-Lab-Trap\image-20220116194050677.png" alt="image-20220116194050677"></p>
 <p>在<code>user/user.h</code> 中声明:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">sigalarm</span><span class="params">(<span class="type">int</span> ticks, <span class="type">void</span> (*handler)())</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">sigreturn</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure>
 
@@ -239,7 +252,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> alarm_interval; <span class="comment">// 时间间隔</span></span><br><span class="line"><span class="type">void</span>(*alarm_handler)(); <span class="comment">// 处理程序</span></span><br><span class="line"><span class="type">int</span> interval_num; <span class="comment">// 已经过了多少个 ticks</span></span><br><span class="line"><span class="type">int</span> pre_end; <span class="comment">// 上一个 sigalarm 是否已经结束</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">trapframe</span> *<span class="title">alarm_trapframe</span>;</span> <span class="comment">// 用来 save and restore registers</span></span><br></pre></td></tr></table></figure>
 
 <p>初始化 <code>proc</code> fields in <code>allocproc()</code> in <code>proc.c</code></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="keyword">struct</span> proc*</span><br><span class="line"><span class="title function_">allocproc</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// Allocate a trapframe page.</span></span><br><span class="line">  <span class="keyword">if</span>((p-&gt;trapframe = (<span class="keyword">struct</span> trapframe *)kalloc()) == <span class="number">0</span>)&#123;</span><br><span class="line">    release(&amp;p-&gt;lock);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// new</span></span><br><span class="line">  <span class="keyword">if</span>((p-&gt;alarm_trapframe = (<span class="keyword">struct</span> trapframe *)kalloc()) == <span class="number">0</span>)&#123;</span><br><span class="line">    release(&amp;p-&gt;lock);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// An empty user page table.</span></span><br><span class="line">  p-&gt;pagetable = proc_pagetable(p);</span><br><span class="line">  <span class="keyword">if</span>(p-&gt;pagetable == <span class="number">0</span>)&#123;</span><br><span class="line">    freeproc(p);</span><br><span class="line">    release(&amp;p-&gt;lock);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Set up new context to start executing at forkret,</span></span><br><span class="line">  <span class="comment">// which returns to user space.</span></span><br><span class="line">  <span class="built_in">memset</span>(&amp;p-&gt;context, <span class="number">0</span>, <span class="keyword">sizeof</span>(p-&gt;context));</span><br><span class="line">  p-&gt;context.ra = (uint64)forkret;</span><br><span class="line">  p-&gt;context.sp = p-&gt;kstack + PGSIZE;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// new</span></span><br><span class="line">  p-&gt;interval_num = <span class="number">0</span>;</span><br><span class="line">  p-&gt;alarm_interval = <span class="number">0</span>;</span><br><span class="line">  p-&gt;alarm_handler = <span class="number">0</span>;</span><br><span class="line">  p-&gt;pre_end = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span></span><br><span class="line"><span class="title function_">freeproc</span><span class="params">(<span class="keyword">struct</span> proc *p)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span>(p-&gt;trapframe)</span><br><span class="line">    kfree((<span class="type">void</span>*)p-&gt;trapframe);</span><br><span class="line">  p-&gt;trapframe = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">  <span class="keyword">if</span>(p-&gt;alarm_trapframe)</span><br><span class="line">    kfree((<span class="type">void</span>*)p-&gt;alarm_trapframe);</span><br><span class="line">  p-&gt;alarm_trapframe = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">  <span class="keyword">if</span>(p-&gt;pagetable)</span><br><span class="line">    proc_freepagetable(p-&gt;pagetable, p-&gt;sz);</span><br><span class="line">  p-&gt;pagetable = <span class="number">0</span>;</span><br><span class="line">  p-&gt;sz = <span class="number">0</span>;</span><br><span class="line">  p-&gt;pid = <span class="number">0</span>;</span><br><span class="line">  p-&gt;parent = <span class="number">0</span>;</span><br><span class="line">  p-&gt;name[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">  p-&gt;chan = <span class="number">0</span>;</span><br><span class="line">  p-&gt;killed = <span class="number">0</span>;</span><br><span class="line">  p-&gt;xstate = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">// new</span></span><br><span class="line">  p-&gt;alarm_handler = <span class="number">0</span>;</span><br><span class="line">  p-&gt;alarm_interval = <span class="number">0</span>;</span><br><span class="line">  p-&gt;interval_num = <span class="number">0</span>;</span><br><span class="line">  p-&gt;pre_end = <span class="number">1</span>;</span><br><span class="line">  p-&gt;state = UNUSED;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="keyword">struct</span> proc*</span><br><span class="line"><span class="title function_">allocproc</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// Allocate a trapframe page.</span></span><br><span class="line">  <span class="keyword">if</span>((p-&gt;trapframe = (<span class="keyword">struct</span> trapframe *)kalloc()) == <span class="number">0</span>)&#123;</span><br><span class="line">    release(&amp;p-&gt;lock);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// new</span></span><br><span class="line">  <span class="keyword">if</span>((p-&gt;alarm_trapframe = (<span class="keyword">struct</span> trapframe *)kalloc()) == <span class="number">0</span>)&#123;</span><br><span class="line">    release(&amp;p-&gt;lock);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// An empty user page table.</span></span><br><span class="line">  p-&gt;pagetable = proc_pagetable(p);</span><br><span class="line">  <span class="keyword">if</span>(p-&gt;pagetable == <span class="number">0</span>)&#123;</span><br><span class="line">    freeproc(p);</span><br><span class="line">    release(&amp;p-&gt;lock);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Set up new context to start executing at forkret,</span></span><br><span class="line">  <span class="comment">// which returns to user space.</span></span><br><span class="line">  <span class="built_in">memset</span>(&amp;p-&gt;context, <span class="number">0</span>, <span class="keyword">sizeof</span>(p-&gt;context));</span><br><span class="line">  p-&gt;context.ra = (uint64)forkret;</span><br><span class="line">  p-&gt;context.sp = p-&gt;kstack + PGSIZE;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// new</span></span><br><span class="line">  p-&gt;interval_num = <span class="number">0</span>;</span><br><span class="line">  p-&gt;alarm_interval = <span class="number">0</span>;</span><br><span class="line">  p-&gt;alarm_handler = <span class="number">0</span>;</span><br><span class="line">  p-&gt;pre_end = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span></span><br><span class="line"><span class="title function_">freeproc</span><span class="params">(<span class="keyword">struct</span> proc *p)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span>(p-&gt;trapframe)</span><br><span class="line">    kfree((<span class="type">void</span>*)p-&gt;trapframe);</span><br><span class="line">  p-&gt;trapframe = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">  <span class="keyword">if</span>(p-&gt;alarm_trapframe)</span><br><span class="line">    kfree((<span class="type">void</span>*)p-&gt;alarm_trapframe);</span><br><span class="line">  p-&gt;alarm_trapframe = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">  <span class="keyword">if</span>(p-&gt;pagetable)</span><br><span class="line">    proc_freepagetable(p-&gt;pagetable, p-&gt;sz);</span><br><span class="line">  p-&gt;pagetable = <span class="number">0</span>;</span><br><span class="line">  p-&gt;sz = <span class="number">0</span>;</span><br><span class="line">  p-&gt;pid = <span class="number">0</span>;</span><br><span class="line">  p-&gt;parent = <span class="number">0</span>;</span><br><span class="line">  p-&gt;name[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">  p-&gt;chan = <span class="number">0</span>;</span><br><span class="line">  p-&gt;killed = <span class="number">0</span>;</span><br><span class="line">  p-&gt;xstate = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">// new</span></span><br><span class="line">  p-&gt;alarm_handler = <span class="number">0</span>;</span><br><span class="line">  p-&gt;alarm_interval = <span class="number">0</span>;</span><br><span class="line">  p-&gt;interval_num = <span class="number">0</span>;</span><br><span class="line">  p-&gt;pre_end = <span class="number">1</span>;</span><br><span class="line">  p-&gt;state = UNUSED;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在trap.c 中增加sigalarm() 和 sigreturn() 函数：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">sigalarm</span><span class="params">(<span class="type">int</span> ticks, <span class="type">void</span> (*handler)())</span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line">  p-&gt;alarm_interval = ticks;</span><br><span class="line">  p-&gt;interval_num = <span class="number">0</span>;</span><br><span class="line">  p-&gt;alarm_handler = handler;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">sigreturn</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line">  p-&gt;pre_end = <span class="number">1</span>; <span class="comment">// 上一个sigalarm已经结束</span></span><br><span class="line">  *p-&gt;trapframe = *p-&gt;alarm_trapframe; <span class="comment">// 恢复寄存器</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -254,11 +267,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：</li>
+        <li>Post title：6.S081 Lab Trap</li>
         <li>Post author：Liu Zhendong</li>
-        <li>Create time：2022-03-23 12:58:06</li>
+        <li>Create time：2022-03-23 21:42:34</li>
         <li>
-            Post link：https://hohodong.github.io/2022/03/23/lab4-traps/
+            Post link：https://hohodong.github.io/2022/03/23/6-S081-Lab-Traps/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -270,6 +283,14 @@
         
 
         
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/6-S081-lab/">#6.S081 lab</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
 
         
             <div class="article-nav">
@@ -277,13 +298,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/03/23/lab5-lazy/"
+                           href="/2022/03/23/6-S081-Lab-Page-Tables/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item"></span>
+                                <span class="post-nav-title-item">6.S081 Lab Page Tables</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -293,10 +314,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/03/23/lab3-page%20tables/"
+                           href="/2022/03/22/My-New-Post/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item"></span>
+                                <span class="post-nav-title-item">My New Post</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">

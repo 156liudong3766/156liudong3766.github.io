@@ -9,6 +9,8 @@
     
     <title>
         
+            6.S081 Lab Thread |
+        
         Dong&#39;s Blog
     </title>
     
@@ -140,7 +142,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation"></span>
+            <span class="title-hover-animation">6.S081 Lab Thread</span>
         </div>
 
         
@@ -159,10 +161,21 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-03-23 12:58:52</span>
-        <span class="mobile">2022-03-23 12:58</span>
+        <span class="pc">2022-03-23 21:46:15</span>
+        <span class="mobile">2022-03-23 21:46</span>
     </span>
     
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/6-S081-lab/">6.S081 lab</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -212,7 +225,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span></span><br><span class="line"><span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">pthread_t</span> *tha;</span><br><span class="line">  <span class="type">void</span> *value;</span><br><span class="line">  <span class="type">double</span> t1, t0;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (argc &lt; <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Usage: %s nthreads\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  pthread_mutex_init(&amp;lock, <span class="literal">NULL</span>); <span class="comment">// initialize the lock</span></span><br><span class="line"></span><br><span class="line">  nthread = atoi(argv[<span class="number">1</span>]);</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>执行结果：</p>
-<p><img src="/2022/03/23/lab7-thread/Hexo-Blog\source_posts\picture\image-20220125224115267.png" alt="image-20220125224115267"></p>
+<p><img lazyload src="/images/loading.svg" data-src="D:\Hexo-Blog\source_posts\6-S081-Lab-Thread\image-20220125224115267.png" alt="image-20220125224115267"></p>
 <p>根据提示，There are situations where concurrent <code>put()</code>s have no overlap in the memory they read or write in the hash table, and thus don’t need a lock to protect against each other. Can you change <code>ph.c</code> to take advantage of such situations to obtain parallel speedup for some <code>put()</code>s? Hint: how about a lock per hash bucket? 不在一个BUCKET里的entry不会互相干扰，因此我们使用每个hash bucket一个lock的策略：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">pthread_mutex_t</span> lock[NBUCKET];            <span class="comment">// declare a lock</span></span><br></pre></td></tr></table></figure>
 
@@ -223,7 +236,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;NBUCKET;i++)</span><br><span class="line"></span><br><span class="line">    pthread_mutex_init(&amp;lock[i], <span class="literal">NULL</span>); <span class="comment">// initialize the lock</span></span><br></pre></td></tr></table></figure>
 
 <p>运行结果：</p>
-<p><img src="/2022/03/23/lab7-thread/Hexo-Blog\source_posts\picture\image-20220125224710349.png" alt="image-20220125224710349"></p>
+<p><img lazyload src="/images/loading.svg" data-src="D:\Hexo-Blog\source_posts\6-S081-Lab-Thread\image-20220125224710349.png" alt="image-20220125224710349"></p>
 <p>可以明显观察到puts过程的加速</p>
 <h2 id="Barrier"><a href="#Barrier" class="headerlink" title="Barrier"></a>Barrier</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> </span><br><span class="line"><span class="title function_">barrier</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// YOUR CODE HERE</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  <span class="comment">// Block until all threads have called barrier() and</span></span><br><span class="line">  <span class="comment">// then increment bstate.round.</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  pthread_mutex_lock(&amp;bstate.barrier_mutex);       <span class="comment">// acquire lock</span></span><br><span class="line">  bstate.nthread ++;</span><br><span class="line">  <span class="keyword">if</span>(bstate.nthread == nthread)&#123;</span><br><span class="line">      pthread_cond_broadcast(&amp;bstate.barrier_cond);     <span class="comment">// wake up every thread sleeping on cond</span></span><br><span class="line">      bstate.round++;</span><br><span class="line">      bstate.nthread = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span>&#123;</span><br><span class="line">      pthread_cond_wait(&amp;bstate.barrier_cond, &amp;bstate.barrier_mutex);  <span class="comment">// go to sleep on cond, releasing lock mutex, acquiring upon wake up</span></span><br><span class="line">  &#125;</span><br><span class="line">  pthread_mutex_unlock(&amp;bstate.barrier_mutex);     <span class="comment">// release lock</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -234,11 +247,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：</li>
+        <li>Post title：6.S081 Lab Thread</li>
         <li>Post author：Liu Zhendong</li>
-        <li>Create time：2022-03-23 12:58:52</li>
+        <li>Create time：2022-03-23 21:46:15</li>
         <li>
-            Post link：https://hohodong.github.io/2022/03/23/lab7-thread/
+            Post link：https://hohodong.github.io/2022/03/23/6-S081-Lab-Thread/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -250,6 +263,14 @@
         
 
         
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/6-S081-lab/">#6.S081 lab</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
 
         
             <div class="article-nav">
@@ -257,13 +278,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/03/23/lab8-locks/"
+                           href="/2022/03/23/6-S081-Lab-Locks/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item"></span>
+                                <span class="post-nav-title-item">6.S081 Lab Locks</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -273,10 +294,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/03/23/lab6-cow/"
+                           href="/2022/03/23/6-S081-Lab-Cow/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item"></span>
+                                <span class="post-nav-title-item">6.S081 Lab Cow</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
