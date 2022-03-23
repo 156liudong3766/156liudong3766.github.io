@@ -183,7 +183,7 @@
         
 
         <div class="article-content markdown-body">
-            <p><img src="C:\Users\13693763628\AppData\Roaming\Typora\typora-user-images\image-20220114231642314.png" alt="image-20220114231642314"></p>
+            <p><img src="/2022/03/23/lab4-traps/Hexo-Blog\source_posts\picture\image-20220114231642314.png" alt="image-20220114231642314"></p>
 <p>1、Which registers contain arguments to functions?  For example, which    register holds 13 in main’s call to <code>printf</code>?  </p>
 <p>哪个寄存器存储函数的参数？例如，在main对printf的调用中哪个寄存器存了13？</p>
 <p>a0-a7;a2</p>
@@ -206,10 +206,10 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">void main(void) &#123;</span><br><span class="line">  1c:	1141                	addi	sp,sp,-16</span><br><span class="line">  1e:	e406                	sd	ra,8(sp)</span><br><span class="line">  20:	e022                	sd	s0,0(sp)</span><br><span class="line">  22:	0800                	addi	s0,sp,16</span><br><span class="line">  printf(&quot;%d %d\n&quot;, f(8)+1, 13);</span><br><span class="line">  24:	4635                	li	a2,13</span><br><span class="line">  26:	45b1                	li	a1,12</span><br><span class="line">  28:	00000517          	auipc	a0,0x0</span><br><span class="line">  2c:	7b050513          	addi	a0,a0,1968 # 7d8 &lt;malloc+0xea&gt;</span><br><span class="line">  30:	00000097          	auipc	ra,0x0</span><br><span class="line">  34:	600080e7          	jalr	1536(ra) # 630 &lt;printf&gt;</span><br><span class="line">  exit(0);</span><br><span class="line">  38:	4501                	li	a0,0</span><br><span class="line">  3a:	00000097          	auipc	ra,0x0</span><br><span class="line">  3e:	27e080e7          	jalr	638(ra) # 2b8 &lt;exit&gt;</span><br></pre></td></tr></table></figure>
 
 <p>在RISC-V汇编中：</p>
-<p><img src="C:\Users\13693763628\AppData\Roaming\Typora\typora-user-images\image-20220114233148295.png" alt="image-20220114233148295"></p>
-<p><img src="C:\Users\13693763628\AppData\Roaming\Typora\typora-user-images\image-20220114233407461.png" alt="image-20220114233407461"></p>
+<p><img src="/2022/03/23/lab4-traps/Hexo-Blog\source_posts\picture\image-20220114233148295.png" alt="image-20220114233148295"></p>
+<p><img src="/2022/03/23/lab4-traps/Hexo-Blog\source_posts\picture\image-20220114233407461.png" alt="image-20220114233407461"></p>
 <h2 id="Backtrace"><a href="#Backtrace" class="headerlink" title="Backtrace"></a>Backtrace</h2><p>这个lab实际就是要求写一个backtrace函数，能够打印出frame pointer所指的地址处return address</p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2020/lec/l-riscv-slides.pdf" >这个slide<i class="fas fa-external-link-alt"></i></a>描述了堆栈的结构</p>
+<p><a class="link" target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2020/lec/l-riscv-slides.pdf">这个slide<i class="fas fa-external-link-alt"></i></a>描述了堆栈的结构</p>
 <p>根据提示，我们有了r_fp()可以取出s0中的frame pointer，那么剩下的工作就是遍历栈，打印出所有的return address，请注意，返回地址与堆栈帧指针的固定偏移量(-8)，保存的帧指针与帧指针的固定偏移量(-16)</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">backtrace</span><span class="params">()</span>&#123;</span><br><span class="line">  uint64 frame_point = r_fp();</span><br><span class="line">  <span class="keyword">while</span>(frame_point != PGROUNDUP(frame_point))&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, *(uint64*)(frame_point<span class="number">-8</span>));</span><br><span class="line">    frame_point = *(uint64*)(frame_point<span class="number">-16</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -227,7 +227,7 @@
 <p><code>sigalarm(2, periodic)</code>先调用sigalarm(), 将时间间隔设为 2，每隔2 个 ticks调用程序 periodic，然后调用 <code>sigalarm(0, 0)</code>, 内核 停止 生成 periodic alarm calls.</p>
 <p>具体步骤：</p>
 <p>先修改 Makefile 让 <code>alarmtest.c</code> 能被编译为一个xv6用户程序：</p>
-<p><img src="C:\Users\13693763628\AppData\Roaming\Typora\typora-user-images\image-20220116194050677.png" alt="image-20220116194050677"></p>
+<p><img src="/2022/03/23/lab4-traps/Hexo-Blog\source_posts\picture\image-20220116194050677.png" alt="image-20220116194050677"></p>
 <p>在<code>user/user.h</code> 中声明:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">sigalarm</span><span class="params">(<span class="type">int</span> ticks, <span class="type">void</span> (*handler)())</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">sigreturn</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure>
 
@@ -295,7 +295,7 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/03/23/Lab%20page%20tables/"
+                           href="/2022/03/23/lab3-page%20tables/"
                         >
                             <span class="title flex-center">
                                 <span class="post-nav-title-item"></span>
