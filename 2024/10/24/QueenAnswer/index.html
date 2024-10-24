@@ -9,7 +9,7 @@
     
     <title>
         
-            testText |
+            乃琳的答案之书 |
         
         Dong&#39;s Blog
     </title>
@@ -142,7 +142,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">testText</span>
+            <span class="title-hover-animation">乃琳的答案之书</span>
         </div>
 
         
@@ -161,13 +161,17 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2024-10-24 21:47:18</span>
-        <span class="mobile">2024-10-24 21:47</span>
+        <span class="pc">2024-10-24 22:50:00</span>
+        <span class="mobile">2024-10-24 22:50</span>
     </span>
     
     
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>964 Words</span>
+        </span>
     
     
     
@@ -179,18 +183,196 @@
         
 
         <div class="article-content markdown-body">
-            
+            <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #e0f7fa; /* 更改背景颜色 */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        text-align: center;
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        color: #009688; /* 更改标题颜色 */
+        font-size: 2em; /* 增加标题字体大小 */
+    }
+    p#result {
+        font-size: 1.5em; /* 增加结果文本的字体大小 */
+        color: #555;
+        margin: 1.5rem 0;
+    }
+    button {
+        background-color: #009688; /* 更改按钮背景颜色 */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1em;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #00796b; /* 按钮悬停时的颜色 */
+    }
+</style>
+<script>
+function getRandomAnswer() {
+    var answers = [
+        "专注一点，结果会更好～",
+        "起心动念皆是因。",
+        "好好规划，加油～",
+        "对自己负责",
+        "缘，妙不可言~",
+        "需要争取",
+        "你是最棒",
+        "Always.",
+        "好运将会降临",
+        "放心去做吧！",
+        "包的",
+        "不要后悔自己的决定。",
+        "免！我！蹉！跎！苦！",
+        "换个角度说不定会不一样。",
+        "这是一个挑战",
+        "要自信！",
+        "不留遗憾就好",
+        "先不管别的，先吃顿火锅吧",
+        "你，可以的！！",
+        "有何不可？",
+        "行则将至 去做就好了",
+        "汪！",
+        "没关系，这是你当下能做的最好的决定",
+        "何妨一试",
+        "支持你的一切决定",
+        "或许有更好的办法",
+        "放心，时间会证明一切",
+        "必须的！！！！！",
+        "听天由命，扔鞋决定吧！",
+        "及时止损",
+        "可能会发生一些令人吃惊的结局",
+        "机遇与挑战并存",
+        "兼听则明，偏信则暗",
+        "立刻",
+        "好好睡觉很重要！",
+        "从今天开始早点睡觉吧～",
+        "快来抱抱～",
+        "多爱自己～",
+        "你所热爱的，就是你的生活",
+        "重要的不是结果，是过程",
+        "未来会有真正的答案",
+        "相信的心就是你的魔法",
+        "JUST DO IT",
+        "遵循你最初的想法",
+        "如果害怕的话，播放好运来",
+        "暂避锋芒，权且忍让",
+        "会者不难",
+        "时刻保持思考就好",
+        "念念不忘，必有回响",
+        "会和呼吸一样轻松",
+        "可能不会",
+        "山水有相逢，缘来自会续",
+        "一切都会好的",
+        "跟随自己的心💓",
+        "换身衣服，换个心情～",
+        "事已至此，先撸撸猫吧！",
+        "不如看看实况休息一会儿～",
+        "睡一觉就都会好的！",
+        "我会站在你身后",
+        "这是值得的冒险",
+        "向前看",
+        "车到山前必有路",
+        "先休息调整一下吧",
+        "如你所愿",
+        "你会庆幸你做了",
+        "以自己的感受为先",
+        "十拿九稳",
+        "完美的结局",
+        "美少女的事你少管",
+        "愿望触手可及",
+        "这并不难",
+        "顺其自然～",
+        "坚持下去会有转机的。",
+        "先睡一觉吧。",
+        "再试试看呢？",
+        "或许需要退一步了。",
+        "及时放弃。",
+        "说不定可以。",
+        "不要犹豫，坚定向前！",
+        "放松一点，说不定结果会更好。",
+        "别太累了！",
+        "疲惫会影响状态喔～",
+        "不如先停下来～",
+        "你需要假期啦！",
+        "脚踏实地。",
+        "要慎重考虑喔",
+        "不如问问身边的人。",
+        "事已至此，先看乃琳直播吧👆😎",
+        "先等等看，再下决定。",
+        "房子着火我拍照🎵",
+        "一切都是最好的安排～",
+        "跟随自己的心💓",
+        "换身衣服，换个心情～",
+        "事已至此，先撸撸猫吧！",
+        "不如看看实况休息一会儿～",
+        "万事开头难",
+        "柳暗花明又一村",
+        "这困难，竟该死的甜美😎",
+        "痛，但是爽",
+        "会有贵人相助",
+        "马西塔！我系雕啊！！",
+        "只是生活吸引你注意的拙劣手段罢了。",
+        "那就不面对。",
+        "好呀。",
+        "事已至此，先抱抱吧～",
+        "吃顿好吃的，犒劳一下自己吧～",
+        "不许灰心丧气！！",
+        "一如既往～",
+        "带薪假可治百病！",
+        "发大财！",
+        "要天天开心！"
+    ];
+    var randomIndex = Math.floor(Math.random() * answers.length);
+    document.getElementById('result').textContent = answers[randomIndex];
+
+<pre><code>// 更新抽取次数
+var count = parseInt(document.getElementById(&#39;count&#39;).textContent, 10) + 1;
+document.getElementById(&#39;count&#39;).textContent = count;
+</code></pre>
+<p>}<br></script></p>
+</head>
+<body>
+<div class="container">
+    <h1>乃琳的答案之书</h1>
+    <p id="result">请点击下方按钮抽取答案。</p>
+    <p>已抽取：<span id="count">0</span>次</p>
+    <button onclick="getRandomAnswer()">抽取答案</button>
+</div>
+</body>
+</html>
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：testText</li>
+        <li>Post title：乃琳的答案之书</li>
         <li>Post author：Liu Zhendong</li>
-        <li>Create time：2024-10-24 21:47:18</li>
+        <li>Create time：2024-10-24 22:50:00</li>
         <li>
-            Post link：https://hohodong.github.io/2024/10/24/testText/
+            Post link：https://hohodong.github.io/2024/10/24/QueenAnswer/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -206,29 +388,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2024/10/24/QueenAnswer/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">乃琳的答案之书</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/03/23/6-S081-Lab-Locks/"
+                           href="/2024/10/24/testText/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">6.S081 Lab Locks</span>
+                                <span class="post-nav-title-item">testText</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
